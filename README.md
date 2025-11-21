@@ -14,6 +14,10 @@ Une application en ligne de commande robuste et cross-platform pour écouter de 
 - **tokio** (v1) - Runtime asynchrone
 - **clap** (v4.4) - Parsing des arguments CLI avec derive
 - **dirs** (v5.0) - Détection cross-platform des dossiers utilisateur
+- **crossterm** (v0.27) - Gestion des événements clavier en mode raw
+- **notify-rust** (v4.10) - Notifications de bureau cross-platform
+- **image** (v0.24) - Traitement et redimensionnement d'images
+- **metaflac** (v0.2) - Lecture des métadonnées FLAC
 
 ## Prérequis
 
@@ -168,23 +172,51 @@ musicli -d https://www.youtube.com/watch?v=...
 7. **Téléchargement** - Téléchargez des musiques depuis YouTube avec animation
 8. **Cross-platform** - Fonctionne sur Windows, Linux et macOS
 
+### Contrôles Avancés (v0.4.0+)
+
+Pendant la lecture, utilisez les touches suivantes :
+
+| Touche | Action |
+|--------|--------|
+| `ESPACE` ou `P` | Pause / Lecture |
+| `N` | Piste suivante |
+| `+` ou `=` | Augmenter le volume |
+| `-` | Diminuer le volume |
+| `Q` | Quitter |
+
+**Fonctionnalités avancées** :
+
+- ✅ **Contrôle en temps réel** - Pause/Lecture sans interruption
+- ✅ **Barre de progression** - Affichage du temps écoulé et total
+- ✅ **Enchaînement automatique** - Les pistes s'enchaînent automatiquement
+- ✅ **Notifications de bureau** - Notification à chaque changement de piste
+- ✅ **Pochette d'album** - Affichage en ASCII Art (FLAC avec tag ou cover.jpg)
+- ✅ **Contrôle du volume** - Ajustement en temps réel
+
 ## Structure du Projet
 
 ```
 musique/
-├── Cargo.toml              # Configuration du projet
-├── Dockerfile              # Configuration Docker pour cross-compilation
+├── Cargo.toml                  # Configuration du projet
+├── Dockerfile                  # Configuration Docker pour cross-compilation
 ├── src/
-│   ├── main.rs             # Point d'entrée et orchestration (CLI avec clap)
-│   ├── file_manager.rs     # Gestion des fichiers audio
-│   ├── ui.rs               # Interface utilisateur
-│   ├── audio_engine.rs     # Moteur de lecture audio
-│   └── downloader.rs       # Téléchargement de musiques (yt-dlp)
+│   ├── main.rs                 # Point d'entrée et orchestration (CLI avec clap)
+│   ├── file_manager.rs         # Gestion des fichiers audio
+│   ├── ui.rs                   # Interface utilisateur
+│   ├── audio_engine.rs         # Moteur de lecture audio (v1)
+│   ├── audio_engine_v2.rs      # Lecteur avancé avec contrôles (v2)
+│   ├── downloader.rs           # Téléchargement de musiques (yt-dlp)
+│   ├── keyboard.rs             # Gestion des événements clavier (crossterm)
+│   ├── progress.rs             # Affichage de la progression
+│   ├── notifications.rs        # Notifications de bureau (notify-rust)
+│   └── ascii_art.rs            # Affichage des pochettes en ASCII Art
 ├── target/
-│   ├── debug/              # Build de développement
-│   └── release/            # Build optimisé
-├── README.md               # Ce fichier
-├── DOCKER.md               # Guide Docker
+│   ├── debug/                  # Build de développement
+│   └── release/                # Build optimisé
+├── README.md                   # Ce fichier
+├── DOCKER.md                   # Guide Docker
+├── ADVANCED_UX.md              # Documentation des fonctionnalités avancées
+├── CODE_SUMMARY.md             # Résumé complet du code
 └── [autres fichiers de doc]
 ```
 
