@@ -29,6 +29,7 @@ sudo apt-get install -y libasound2-dev pkg-config
 ### Windows
 
 Aucune dépendance système requise. Assurez-vous d'avoir :
+
 - Windows 10 ou supérieur
 - yt-dlp installé (optionnel, pour le téléchargement)
 
@@ -50,11 +51,13 @@ source $HOME/.cargo/env
 ### yt-dlp (optionnel, pour le téléchargement)
 
 **Linux/macOS** :
+
 ```bash
 sudo apt-get install yt-dlp  # ou brew install yt-dlp
 ```
 
 **Windows** :
+
 ```bash
 choco install yt-dlp  # ou pip install yt-dlp
 ```
@@ -122,6 +125,7 @@ musicli
 ```
 
 L'application détecte automatiquement votre dossier de musique :
+
 - **Windows** : `C:\Users\YourName\Music`
 - **macOS** : `~/Music`
 - **Linux** : `~/Music` ou `~/Musique`
@@ -141,12 +145,12 @@ musicli version
 #### Télécharger une musique
 
 ```bash
-musicli download "https://www.youtube.com/watch?v=..."
-musicli --download "https://www.youtube.com/watch?v=..."
-musicli -d "https://www.youtube.com/watch?v=..."
+musicli --download https://www.youtube.com/watch?v=...
+musicli -d https://www.youtube.com/watch?v=...
 ```
 
 **Fonctionnalités du téléchargement** :
+
 - ✅ Spinner animé pendant le téléchargement
 - ✅ Conversion automatique en MP3
 - ✅ Enregistrement dans le dossier Musique détecté
