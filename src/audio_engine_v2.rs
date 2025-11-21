@@ -1,7 +1,9 @@
 use crate::file_manager::Track;
 use crate::keyboard::{KeyboardListener, PlayerCommand};
+use crate::notifications::show_notification_simple;
 use crate::progress::ProgressTracker;
 use colored::*;
+use rodio::Source;
 use std::fs::File;
 use std::io::BufReader;
 use std::thread;
@@ -56,6 +58,9 @@ impl AdvancedAudioPlayer {
         let sink = rodio::Sink::try_new(&stream_handle)?;
 
         sink.append(source);
+
+        // Afficher une notification de bureau
+        let _ = show_notification_simple(&format!("Lecture: {}", track.name));
 
         let mut progress = ProgressTracker::new(total_duration);
         let mut last_display = std::time::Instant::now();

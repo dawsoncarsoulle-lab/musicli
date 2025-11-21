@@ -3,6 +3,7 @@ mod audio_engine_v2;
 mod downloader;
 mod file_manager;
 mod keyboard;
+mod notifications;
 mod progress;
 mod ui;
 
