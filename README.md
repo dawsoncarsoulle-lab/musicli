@@ -187,11 +187,25 @@ Pendant la lecture, utilisez les touches suivantes :
 **Fonctionnalités avancées** :
 
 - ✅ **Contrôle en temps réel** - Pause/Lecture sans interruption
-- ✅ **Barre de progression** - Affichage du temps écoulé et total
+- ✅ **Barre de progression** - Affichage du temps écoulé et total (précis et fiable)
 - ✅ **Enchaînement automatique** - Les pistes s'enchaînent automatiquement
 - ✅ **Notifications de bureau** - Notification à chaque changement de piste
 - ✅ **Pochette d'album** - Affichage en ASCII Art (FLAC avec tag ou cover.jpg)
 - ✅ **Contrôle du volume** - Ajustement en temps réel
+
+### Correction du Bug de Progression (v0.4.1)
+
+**Problème corrigé** : La barre de progression restait statique et le temps affiché était 00:00
+
+**Solution implémentée** :
+- ✅ Suivi temporel manuel avec `std::time::Instant` et `std::time::Duration`
+- ✅ Accumulation précise du temps écoulé lors de la pause/reprise
+- ✅ Mise à jour de la position à chaque itération de la boucle
+- ✅ Détection fiable de fin de piste via `progress.is_finished()`
+- ✅ Fonction dédiée `run_playback_loop()` pour la gestion de la boucle de lecture
+- ✅ Affichage sans scintillement avec `\r` pour réécrire la ligne
+
+**Résultat** : La progression s'affiche maintenant correctement en temps réel avec le format MM:SS / MM:SS
 
 ## Structure du Projet
 
