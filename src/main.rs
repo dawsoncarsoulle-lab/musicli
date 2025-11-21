@@ -1,3 +1,4 @@
+mod ascii_art;
 mod audio_engine;
 mod audio_engine_v2;
 mod downloader;
