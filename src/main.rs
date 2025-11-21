@@ -1,6 +1,9 @@
 mod audio_engine;
+mod audio_engine_v2;
 mod downloader;
 mod file_manager;
+mod keyboard;
+mod progress;
 mod ui;
 
 use audio_engine::AudioPlayer;
@@ -105,12 +108,15 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("{} {} pistes trouvées.\n", "✓".green(), tracks.len());
 
-    let selected_track = select_track(&tracks)?;
+    let selected_index = select_track(&tracks)?;
 
-    display_now_playing(&selected_track.name);
+    println!(
+        "\n{} Contrôles: [ESPACE/P] Pause | [N] Suivant | [+/-] Volume | [Q] Quitter\n",
+        "ℹ".cyan()
+    );
 
-    let player = AudioPlayer::new(selected_track);
-    player.play()?;
+    let mut player = audio_engine_v2::AdvancedAudioPlayer::new(tracks, selected_index);
+    player.play_all()?;
 
     Ok(())
 }

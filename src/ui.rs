@@ -2,7 +2,7 @@ use crate::file_manager::Track;
 use colored::*;
 use inquire::Select;
 
-pub fn select_track(tracks: &[Track]) -> Result<Track, Box<dyn std::error::Error>> {
+pub fn select_track(tracks: &[Track]) -> Result<usize, Box<dyn std::error::Error>> {
     if tracks.is_empty() {
         return Err("Aucune piste audio trouvée.".into());
     }
@@ -14,13 +14,12 @@ pub fn select_track(tracks: &[Track]) -> Result<Track, Box<dyn std::error::Error
         .with_page_size(10)
         .prompt()?;
 
-    let selected_track = tracks
+    let selected_index = tracks
         .iter()
-        .find(|t| t.name == selection)
-        .ok_or("Piste non trouvée")?
-        .clone();
+        .position(|t| t.name == selection)
+        .ok_or("Piste non trouvée")?;
 
-    Ok(selected_track)
+    Ok(selected_index)
 }
 
 pub fn display_now_playing(track_name: &str) {
