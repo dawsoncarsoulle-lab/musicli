@@ -1,0 +1,18 @@
+[package]
+name = "musique"
+version = "0.3.0"
+edition = "2021"
+
+[[bin]]
+name = "musicli"
+path = "src/main.rs"
+
+[dependencies]
+inquire = "0.6"
+indicatif = "0.17"
+colored = "2.0"
+rodio = "0.17"
+walkdir = "2"
+tokio = { version = "1", features = ["full"] }
+clap = { version = "4.4", features = ["derive"] }
+dirs = "5.0"
