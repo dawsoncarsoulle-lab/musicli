@@ -60,6 +60,7 @@ Cargo.toml (17 lignes)
 ### Code source (219 lignes total)
 
 #### main.rs (43 lignes)
+
 ```
 Responsabilité : Orchestration
 ├── mod declarations (3 modules)
@@ -77,6 +78,7 @@ Responsabilité : Orchestration
 ```
 
 #### file_manager.rs (63 lignes)
+
 ```
 Responsabilité : Gestion des fichiers
 ├── use statements (2 imports)
@@ -93,6 +95,7 @@ Responsabilité : Gestion des fichiers
 ```
 
 #### ui.rs (46 lignes)
+
 ```
 Responsabilité : Interface utilisateur
 ├── use statements (3 imports)
@@ -109,6 +112,7 @@ Responsabilité : Interface utilisateur
 ```
 
 #### audio_engine.rs (67 lignes)
+
 ```
 Responsabilité : Moteur audio
 ├── use statements (7 imports)
@@ -128,6 +132,7 @@ Responsabilité : Moteur audio
 ## 📚 Documentation
 
 ### README.md
+
 - Guide utilisateur complet
 - Installation
 - Utilisation
@@ -135,12 +140,14 @@ Responsabilité : Moteur audio
 - Licence
 
 ### QUICKSTART.md
+
 - Démarrage en 5 minutes
 - Installation rapide
 - Commandes essentielles
 - Troubleshooting rapide
 
 ### INSTALLATION.md
+
 - Prérequis système détaillés
 - 3 méthodes d'installation
 - Configuration du PATH
@@ -148,6 +155,7 @@ Responsabilité : Moteur audio
 - Vérification de l'installation
 
 ### ARCHITECTURE.md
+
 - Vue d'ensemble
 - Modules détaillés
 - Flux de données
@@ -156,6 +164,7 @@ Responsabilité : Moteur audio
 - Dépendances externes
 
 ### DEVELOPMENT.md
+
 - Configuration de l'environnement
 - Workflow de développement
 - Ajouter des fonctionnalités
@@ -165,6 +174,7 @@ Responsabilité : Moteur audio
 - Conventions de code
 
 ### SUMMARY.md
+
 - Résumé complet du projet
 - Objectifs atteints
 - Stack technique
@@ -173,6 +183,7 @@ Responsabilité : Moteur audio
 - Prochaines étapes
 
 ### CHECKLIST.md
+
 - Checklist de vérification
 - Validation finale
 - Statistiques
@@ -180,6 +191,7 @@ Responsabilité : Moteur audio
 ## 🔧 Scripts
 
 ### install.sh
+
 ```bash
 #!/bin/bash
 ├── Vérifier les dépendances système
@@ -192,6 +204,7 @@ Responsabilité : Moteur audio
 ## 📊 Statistiques
 
 ### Code source
+
 ```
 main.rs              43 lignes
 file_manager.rs      63 lignes
@@ -202,6 +215,7 @@ TOTAL               219 lignes
 ```
 
 ### Documentation
+
 ```
 README.md           ~100 lignes
 QUICKSTART.md       ~80 lignes
@@ -216,6 +230,7 @@ TOTAL              ~1410 lignes
 ```
 
 ### Dépendances
+
 ```
 Dépendances directes : 6
 ├── inquire 0.6
@@ -277,6 +292,7 @@ main.rs
 ## 🚀 Compilation
 
 ### Mode développement
+
 ```
 cargo build
     ↓
@@ -284,6 +300,7 @@ target/debug/musicli (~100 MB)
 ```
 
 ### Mode release
+
 ```
 cargo build --release
     ↓
@@ -311,11 +328,13 @@ musicli (commande globale)
 ## 🎯 Points d'entrée
 
 ### Pour l'utilisateur
+
 ```bash
 musicli
 ```
 
 ### Pour le développeur
+
 ```bash
 cargo build
 cargo run
@@ -324,6 +343,7 @@ cargo clippy
 ```
 
 ### Pour l'installation
+
 ```bash
 bash install.sh
 # ou
@@ -333,17 +353,20 @@ cargo install --path .
 ## 📝 Conventions
 
 ### Nommage
+
 - Fonctions : `snake_case`
 - Structures : `PascalCase`
 - Modules : `snake_case`
 - Constantes : `SCREAMING_SNAKE_CASE`
 
 ### Documentation
+
 - Toutes les fonctions publiques ont une doc string
 - Format : `/// Description`
 - Exemples inclus quand pertinent
 
 ### Code
+
 - Pas d'imports inutilisés
 - Pas de code mort
 - Gestion d'erreurs complète
@@ -364,6 +387,6 @@ cargo install --path .
 
 ---
 
-**Créé le** : 20 novembre 2025  
-**Version** : 0.1.0  
+**Créé le** : 20 novembre 2025
+**Version** : 0.3.0
 **Status** : ✅ COMPLET ET FONCTIONNEL
