@@ -1,7 +1,6 @@
 use std::path::PathBuf;
 use walkdir::WalkDir;
 
-/// Représente une piste audio avec son nom et son chemin.
 #[derive(Clone, Debug)]
 pub struct Track {
     pub name: String,
@@ -9,7 +8,6 @@ pub struct Track {
 }
 
 impl Track {
-    /// Crée une nouvelle piste à partir d'un chemin.
     fn new(path: PathBuf) -> Self {
         let name = path
             .file_stem()

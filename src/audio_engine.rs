@@ -6,13 +6,11 @@ use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::Duration;
 
-/// Gère la lecture audio avec feedback visuel.
 pub struct AudioPlayer {
     track: Track,
 }
 
 impl AudioPlayer {
-    /// Crée un nouveau lecteur audio pour une piste donnée.
     pub fn new(track: Track) -> Self {
         AudioPlayer { track }
     }
@@ -62,6 +60,6 @@ impl AudioPlayer {
     }
 }
 
-/// Placeholder pour afficher les paroles (à implémenter).
+/// Placeholder pour afficher les paroles (a faire plustard).
 fn afficher_paroles(_track_name: &str) {
 }
