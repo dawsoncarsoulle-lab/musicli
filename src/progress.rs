@@ -1,18 +1,52 @@
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 pub struct ProgressTracker {
     pub total_duration: Duration,
-    pub current_position: Duration,
+    pub accumulated_duration: Duration,
     pub is_playing: bool,
+    playback_start: Option<Instant>,
 }
 
 impl ProgressTracker {
     pub fn new(total_duration: Duration) -> Self {
         ProgressTracker {
             total_duration,
-            current_position: Duration::ZERO,
+            accumulated_duration: Duration::ZERO,
             is_playing: true,
+            playback_start: Some(Instant::now()),
         }
+    }
+
+    pub fn pause(&mut self) {
+        if let Some(start) = self.playback_start {
+            self.accumulated_duration += start.elapsed();
+            self.playback_start = None;
+        }
+        self.is_playing = false;
+    }
+
+    pub fn resume(&mut self) {
+        self.playback_start = Some(Instant::now());
+        self.is_playing = true;
+    }
+
+    pub fn update_position(&mut self) {
+        if self.is_playing {
+            if let Some(start) = self.playback_start {
+                self.accumulated_duration += start.elapsed();
+                self.playback_start = Some(Instant::now());
+            }
+        }
+    }
+
+    pub fn get_current_position(&self) -> Duration {
+        let mut current = self.accumulated_duration;
+        if self.is_playing {
+            if let Some(start) = self.playback_start {
+                current += start.elapsed();
+            }
+        }
+        current
     }
 
     pub fn format_time(duration: Duration) -> String {
@@ -23,8 +57,9 @@ impl ProgressTracker {
     }
 
     pub fn get_progress_bar(&self, width: usize) -> String {
+        let current = self.get_current_position();
         let filled = if self.total_duration.as_secs() > 0 {
-            (self.current_position.as_secs_f64() / self.total_duration.as_secs_f64() * width as f64)
+            (current.as_secs_f64() / self.total_duration.as_secs_f64() * width as f64)
                 as usize
         } else {
             0
@@ -41,7 +76,7 @@ impl ProgressTracker {
 
     pub fn get_status_line(&self) -> String {
         let status = if self.is_playing { "▶ Lecture" } else { "⏸ Pause" };
-        let current = Self::format_time(self.current_position);
+        let current = Self::format_time(self.get_current_position());
         let total = Self::format_time(self.total_duration);
         let progress_bar = self.get_progress_bar(30);
 
@@ -49,5 +84,9 @@ impl ProgressTracker {
             "{} {} {} / {}",
             status, progress_bar, current, total
         )
+    }
+
+    pub fn is_finished(&self) -> bool {
+        self.get_current_position() >= self.total_duration
     }
 }

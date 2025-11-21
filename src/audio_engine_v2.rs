@@ -4,7 +4,7 @@ use crate::keyboard::{KeyboardListener, PlayerCommand};
 use crate::notifications::show_notification_simple;
 use crate::progress::ProgressTracker;
 use colored::*;
-use rodio::Source;
+use rodio::{Sink, Source};
 use std::fs::File;
 use std::io::BufReader;
 use std::thread;
@@ -66,7 +66,16 @@ impl AdvancedAudioPlayer {
         // Afficher une notification de bureau
         let _ = show_notification_simple(&format!("Lecture: {}", track.name));
 
-        let mut progress = ProgressTracker::new(total_duration);
+        let progress = ProgressTracker::new(total_duration);
+        self.run_playback_loop(sink, progress, keyboard)
+    }
+
+    fn run_playback_loop(
+        &self,
+        sink: Sink,
+        mut progress: ProgressTracker,
+        keyboard: &KeyboardListener,
+    ) -> Result<bool, Box<dyn std::error::Error>> {
         let mut last_display = std::time::Instant::now();
 
         loop {
@@ -76,11 +85,11 @@ impl AdvancedAudioPlayer {
                     PlayerCommand::PlayPause => {
                         if sink.is_paused() {
                             sink.play();
-                            progress.is_playing = true;
+                            progress.resume();
                             println!("{}", "▶ Reprise de la lecture".green());
                         } else {
                             sink.pause();
-                            progress.is_playing = false;
+                            progress.pause();
                             println!("{}", "⏸ Pause".yellow());
                         }
                     }
@@ -106,6 +115,9 @@ impl AdvancedAudioPlayer {
                 }
             }
 
+            // Mettre à jour la position de lecture
+            progress.update_position();
+
             // Mettre à jour l'affichage de la progression
             if last_display.elapsed() > Duration::from_millis(500) {
                 print!("\r{}", progress.get_status_line());
@@ -114,7 +126,7 @@ impl AdvancedAudioPlayer {
             }
 
             // Vérifier si la piste est terminée
-            if sink.empty() {
+            if sink.empty() || progress.is_finished() {
                 println!("\n{} Piste terminée", "✓".green());
                 return Ok(true);
             }

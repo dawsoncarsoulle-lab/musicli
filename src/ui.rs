@@ -22,6 +22,7 @@ pub fn select_track(tracks: &[Track]) -> Result<usize, Box<dyn std::error::Error
     Ok(selected_index)
 }
 
+#[allow(dead_code)]
 pub fn display_now_playing(track_name: &str) {
     println!("\n{} {}\n", "▶".cyan().bold(), track_name.green().bold());
 }

@@ -8,13 +8,12 @@ mod notifications;
 mod progress;
 mod ui;
 
-use audio_engine::AudioPlayer;
 use clap::{Parser, Subcommand};
 use colored::*;
 use downloader::download_music;
 use file_manager::scan_music_folder;
 use std::path::PathBuf;
-use ui::{display_error, display_now_playing, display_success, select_track};
+use ui::{display_error, display_success, select_track};
 
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 

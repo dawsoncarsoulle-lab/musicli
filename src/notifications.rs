@@ -1,5 +1,6 @@
 use notify_rust::Notification;
 
+#[allow(dead_code)]
 pub fn show_notification(title: &str, artist: &str) -> Result<(), Box<dyn std::error::Error>> {
     Notification::new()
         .summary("🎵 MusicLI")

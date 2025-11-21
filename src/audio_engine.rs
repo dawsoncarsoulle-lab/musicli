@@ -6,10 +6,12 @@ use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::Duration;
 
+#[allow(dead_code)]
 pub struct AudioPlayer {
     track: Track,
 }
 
+#[allow(dead_code)]
 impl AudioPlayer {
     pub fn new(track: Track) -> Self {
         AudioPlayer { track }
@@ -61,5 +63,6 @@ impl AudioPlayer {
 }
 
 /// Placeholder pour afficher les paroles (a faire plustard).
+#[allow(dead_code)]
 fn afficher_paroles(_track_name: &str) {
 }
