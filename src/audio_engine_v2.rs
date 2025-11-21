@@ -57,7 +57,8 @@ impl AdvancedAudioPlayer {
         let reader = BufReader::new(file);
         let source = rodio::Decoder::new(reader)?;
 
-        let total_duration = source.total_duration().unwrap_or(Duration::from_secs(0));
+        // Essayer d'obtenir la durée totale, sinon utiliser une durée très longue
+        let total_duration = source.total_duration().unwrap_or(Duration::from_secs(3600)); // 1 heure par défaut
         let (_stream, stream_handle) = rodio::OutputStream::try_default()?;
         let sink = rodio::Sink::try_new(&stream_handle)?;
 
@@ -125,8 +126,8 @@ impl AdvancedAudioPlayer {
                 last_display = std::time::Instant::now();
             }
 
-            // Vérifier si la piste est terminée
-            if sink.empty() || progress.is_finished() {
+            // Vérifier si la piste est terminée (se fier principalement à sink.empty())
+            if sink.empty() {
                 println!("\n{} Piste terminée", "✓".green());
                 return Ok(true);
             }
