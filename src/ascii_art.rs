@@ -1,46 +1,24 @@
-use image::io::Reader as ImageReader;
-use std::io::Cursor;
+use colored::*;
 use std::path::Path;
 
-const ASCII_CHARS: &str = "@%#*+=-:. ";
-
-pub fn display_ascii_art_from_file(path: &Path) -> Result<(), Box<dyn std::error::Error>> {
-    let img = ImageReader::open(path)?
-        .decode()?
-        .resize(40, 20, image::imageops::FilterType::Lanczos3)
-        .to_luma8();
-
-    print_ascii_image(&img);
-    Ok(())
+pub fn display_vinyl_art() {
+    println!("\n{}", "╔════════════════════════════════════════╗".cyan());
+    println!("{}", "║                                        ║".cyan());
+    println!("{}", "║           ◉ ◉ ◉ ◉ ◉ ◉ ◉ ◉           ║".yellow().bold());
+    println!("{}", "║         ◉               ◉             ║".yellow());
+    println!("{}", "║       ◉      ╭─────╮      ◉           ║".yellow());
+    println!("{}", "║      ◉      │  🎵  │      ◉          ║".yellow().bold());
+    println!("{}", "║     ◉       │  ◎◎  │       ◉         ║".yellow());
+    println!("{}", "║     ◉       ╰─────╯       ◉         ║".yellow());
+    println!("{}", "║       ◉                 ◉             ║".yellow());
+    println!("{}", "║         ◉             ◉               ║".yellow());
+    println!("{}", "║           ◉ ◉ ◉ ◉ ◉ ◉ ◉ ◉           ║".yellow().bold());
+    println!("{}", "║                                        ║".cyan());
+    println!("{}", "╚════════════════════════════════════════╝".cyan());
+    println!();
 }
 
-pub fn display_ascii_art_from_bytes(
-    image_data: &[u8],
-) -> Result<(), Box<dyn std::error::Error>> {
-    let img = ImageReader::new(Cursor::new(image_data))
-        .with_guessed_format()?
-        .decode()?
-        .resize(40, 20, image::imageops::FilterType::Lanczos3)
-        .to_luma8();
-
-    print_ascii_image(&img);
-    Ok(())
-}
-
-fn print_ascii_image(img: &image::ImageBuffer<image::Luma<u8>, Vec<u8>>) {
-    println!("\n{}", "═".repeat(42));
-    for y in 0..img.height() {
-        for x in 0..img.width() {
-            let pixel = img.get_pixel(x, y)[0];
-            let char_index = (pixel as usize / 256) * ASCII_CHARS.len();
-            let char_index = char_index.min(ASCII_CHARS.len() - 1);
-            print!("{}", ASCII_CHARS.chars().nth(char_index).unwrap_or(' '));
-        }
-        println!();
-    }
-    println!("{}\n", "═".repeat(42));
-}
-
+#[allow(dead_code)]
 pub fn try_extract_cover_from_flac(
     path: &Path,
 ) -> Result<Option<Vec<u8>>, Box<dyn std::error::Error>> {
@@ -54,6 +32,7 @@ pub fn try_extract_cover_from_flac(
     Ok(None)
 }
 
+#[allow(dead_code)]
 pub fn display_cover_if_available(
     track_path: &Path,
 ) -> Result<(), Box<dyn std::error::Error>> {
@@ -74,5 +53,17 @@ pub fn display_cover_if_available(
         }
     }
 
+    Ok(())
+}
+
+#[allow(dead_code, unused_variables)]
+pub fn display_ascii_art_from_file(path: &Path) -> Result<(), Box<dyn std::error::Error>> {
+    Ok(())
+}
+
+#[allow(dead_code)]
+pub fn display_ascii_art_from_bytes(
+    _image_data: &[u8],
+) -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }

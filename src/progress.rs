@@ -5,15 +5,18 @@ pub struct ProgressTracker {
     pub accumulated_duration: Duration,
     pub is_playing: bool,
     playback_start: Option<Instant>,
+    pub duration_unknown: bool,
 }
 
 impl ProgressTracker {
     pub fn new(total_duration: Duration) -> Self {
+        let duration_unknown = total_duration.as_secs() >= 3600; // Si >= 1h, c'est probablement la durée par défaut
         ProgressTracker {
             total_duration,
             accumulated_duration: Duration::ZERO,
             is_playing: true,
             playback_start: Some(Instant::now()),
+            duration_unknown,
         }
     }
 
@@ -77,7 +80,11 @@ impl ProgressTracker {
     pub fn get_status_line(&self) -> String {
         let status = if self.is_playing { "▶ Lecture" } else { "⏸ Pause" };
         let current = Self::format_time(self.get_current_position());
-        let total = Self::format_time(self.total_duration);
+        let total = if self.duration_unknown {
+            "Durée Inconnue".to_string()
+        } else {
+            Self::format_time(self.total_duration)
+        };
         let progress_bar = self.get_progress_bar(30);
 
         format!(
@@ -86,6 +93,7 @@ impl ProgressTracker {
         )
     }
 
+    #[allow(dead_code)]
     pub fn is_finished(&self) -> bool {
         self.get_current_position() >= self.total_duration
     }

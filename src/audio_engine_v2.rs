@@ -1,4 +1,4 @@
-use crate::ascii_art::display_cover_if_available;
+use crate::ascii_art::display_vinyl_art;
 use crate::file_manager::Track;
 use crate::keyboard::{KeyboardListener, PlayerCommand};
 use crate::notifications::show_notification_simple;
@@ -50,8 +50,8 @@ impl AdvancedAudioPlayer {
         track: &Track,
         keyboard: &KeyboardListener,
     ) -> Result<bool, Box<dyn std::error::Error>> {
-        // Afficher la pochette d'album si disponible
-        let _ = display_cover_if_available(&track.path);
+        // Afficher un disque vinyle stylisé
+        display_vinyl_art();
 
         let file = File::open(&track.path)?;
         let reader = BufReader::new(file);
